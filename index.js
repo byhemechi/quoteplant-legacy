@@ -32,7 +32,7 @@ let opts = {
 }
 
 // These are the commands the bot knows (defined below):
-let knownCommands = { quote, eggplant: quote }
+let knownCommands = { quote }
 
 // Function called when the "echo" command is issued:
 function quote (target, context, params) {

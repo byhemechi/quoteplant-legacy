@@ -6,7 +6,7 @@ const app = express();
 const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
 
 app.use("/chi", function(req, res) {
-  res.json(quotes);
+  res.send(quotes.join("\n"));
 })
 
 app.use("/", function(req, res) {

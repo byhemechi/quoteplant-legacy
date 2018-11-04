@@ -3,7 +3,7 @@ const tmi = require('tmi.js');
 const fs = require("fs");
 // const app = express();
 
-// const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
+const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
 
 // app.use("/chi", function(req, res) {
 //   res.send(quotes.join("<br>"));

@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "haikudos": "^1.0.7",
+    "tmi.js": "^1.2.1"
+  }
+}

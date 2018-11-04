@@ -13,7 +13,7 @@ app.use("/", function(req, res) {
   res.redirect(301, "/chi" + req.url);
 })
 
-app.listen(8080, function() {
+app.listen(443, function() {
   console.log(quotes)
 });
 
@@ -66,7 +66,6 @@ function onMessageHandler (target, context, msg, self) {
 
   // This isn't a command since it has no prefix:
   if (msg.substr(0, 1) !== commandPrefix) {
-    console.log(`[${target} (${context['message-type']})] ${context.username}: ${msg}`)
     return
   }
 

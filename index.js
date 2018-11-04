@@ -32,11 +32,17 @@ let opts = {
 }
 
 // These are the commands the bot knows (defined below):
-let knownCommands = { quote }
+let knownCommands = { quote, submitquote,commands }
 
 // Function called when the "echo" command is issued:
 function quote (target, context, params) {
   sendMessage(target, context, "\"" + quotes[Math.floor(Math.random()*quotes.length)] + "\" - karljobstSCHWARZENEGGPLANT");
+}
+function submitquote (target, context, params) {
+  sendMessage(target, context, "submit quotes to https://github.com/zsty/quoteplant (via pull request)");
+}
+function commands (target, context, params) {
+  sendMessage(target, context, "Say !quote for an excellent eggplant quote.");
 }
 
 

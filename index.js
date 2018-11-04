@@ -1,9 +1,9 @@
 const tmi = require('tmi.js');
 const express = require('express');
-
+const fs = require("fs");
 const app = express();
 
-const quotes = require("./quotes.json");
+const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
 
 app.use("/chi", function(req, res) {
   res.json(quotes);

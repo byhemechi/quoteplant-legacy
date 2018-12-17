@@ -1,21 +1,21 @@
 const tmi = require('tmi.js');
-const express = require('express');
+// const express = require('express');
 const fs = require("fs");
-const app = express();
+// const app = express();
 
 const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
 
-app.use("/chi", function(req, res) {
-  res.json(quotes);
-})
+// app.use("/chi", function(req, res) {
+//   res.send(quotes.join("<br>"));
+// })
 
-app.use("/", function(req, res) {
-  res.redirect(301, "/chi" + req.url);
-})
+// app.use("/", function(req, res) {
+//   res.redirect(301, "/chi" + req.url);
+// })
 
-app.listen(443, function() {
-  console.log(quotes)
-});
+// app.listen(443, function() {
+//   console.log(quotes)
+// });
 
 // Valid commands start with:
 let commandPrefix = '!'
@@ -32,11 +32,14 @@ let opts = {
 }
 
 // These are the commands the bot knows (defined below):
-let knownCommands = { quote, submitquote,commands }
+let knownCommands = { quote, submitquote,commands,play }
 
 // Function called when the "echo" command is issued:
 function quote (target, context, params) {
   sendMessage(target, context, "\"" + quotes[Math.floor(Math.random()*quotes.length)] + "\" - karljobstSCHWARZENEGGPLANT");
+}
+function play (target, context, params) {
+  sendMessage(target, context, "!play");
 }
 function submitquote (target, context, params) {
   sendMessage(target, context, "submit quotes to https://github.com/zsty/quoteplant (via pull request)");

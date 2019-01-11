@@ -5,6 +5,9 @@ const fs = require("fs");
 
 const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
 
+var lastplay = 0;
+var lq = "";
+
 // app.use("/chi", function(req, res) {
 //   res.send(quotes.join("<br>"));
 // })
@@ -36,7 +39,12 @@ let knownCommands = { quote, submitquote,commands,play }
 
 // Function called when the "echo" command is issued:
 function quote (target, context, params) {
-  sendMessage(target, context, "\"" + quotes[Math.floor(Math.random()*quotes.length)] + "\" - karljobstSCHWARZENEGGPLANT");
+  var quote = quotes[Number(params[0]) - 1];
+  if (quote) {
+    sendMessage(target, context, "\"" + quote + "\" - karljobstSCHWARZENEGGPLANT");
+  } else {
+    sendMessage(target, context, "\"" + quotes[Math.floor(Math.random()*quotes.length)] + "\" - karljobstSCHWARZENEGGPLANT");
+  }
 }
 function play (target, context, params) {
   sendMessage(target, context, "!play");
@@ -54,7 +62,14 @@ function sendMessage (target, context, message) {
   if (context['message-type'] === 'whisper') {
     client.whisper(target, message)
   } else {
-    client.say(target, message)
+    console.log(message != lq, (Date.now() - lastplay > 30000 && message == lq), Date.now() - lastplay)
+    if(message != lq || (Date.now() - lastplay > 30000 && message == lq)) {
+      lastplay = Date.now();
+      lq = message;
+      client.say(target, message)
+    } else if (message != "!play") {
+      client.say(target, `Please wait ${30 - Math.round((Date.now() - lastplay) / 1000)}s or use another command`)
+    }
   }
 }
 
@@ -92,9 +107,7 @@ function onMessageHandler (target, context, msg, self) {
     // Then call the command with parameters:
     command(target, context, params)
     console.log(`* Executed ${commandName} command for ${context.username}`)
-  } else {
-    console.log(`* Unknown command ${commandName} from ${context.username}`)
-  }
+  } 
 }
 
 // Called every time the bot connects to Twitch chat:

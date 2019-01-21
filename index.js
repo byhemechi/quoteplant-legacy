@@ -1,6 +1,7 @@
 const tmi = require('tmi.js');
 // const express = require('express');
 const fs = require("fs");
+const config = require('./config');
 // const app = express();
 
 const quotes = fs.readFileSync("quotes.txt", "utf-8").split("\n");
@@ -25,8 +26,8 @@ let commandPrefix = '!'
 // Define configuration options:
 let opts = {
   identity: {
-    username: 'quoteplant',
-    password: 'oauth:vecsqwidq6nlc8zvt4mujc6e6np7ul'
+    username: config.user,
+    password: config.token
   },
   channels: [
     'byhemechi',
@@ -68,7 +69,7 @@ function sendMessage (target, context, message) {
       lq = message;
       client.say(target, message)
     } else if (message != "!play") {
-      client.say(target, `Please wait ${30 - Math.round((Date.now() - lastplay) / 1000)}s or use another command`)
+      client.say(target, `/me Please wait ${30 - Math.round((Date.now() - lastplay) / 1000)}s or use another command`)
     }
   }
 }
